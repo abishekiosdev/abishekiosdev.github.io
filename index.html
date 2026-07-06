@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abishek — iOS Developer</title>
+  <meta name="description" content="Abishek — iOS Developer with 4+ years. Swift, UIKit, SwiftUI, REST APIs, Realm, CI/CD." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-mode">
+
+  <!-- ── ANIMATED BACKGROUND ── -->
+  <div class="wallpaper">
+    <canvas id="bg-canvas"></canvas>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ── macOS MENU BAR ── -->
+  <header class="menu-bar" id="menu-bar">
+    <div class="menu-left">
+      <span class="menu-item apple-logo">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.1.09 2.23-.58 2.95-1.39z"/></svg>
+      </span>
+      <span class="menu-item active">Abishek OS</span>
+      <span class="menu-item">Simulator</span>
+      <span class="menu-item">Device</span>
+      <span class="menu-item">Debug</span>
+    </div>
+    <div class="menu-right">
+      <div class="menu-item theme-toggle" onclick="toggleTheme()" title="Toggle Light/Dark">
+        <svg id="theme-icon" viewBox="0 0 24 24" width="15" height="15" style="transition:transform .35s ease">
+          <path fill="currentColor" d="M12.1 22c-5 0-9.1-4.1-9.1-9.1C3 7.8 7.2 3.5 12.5 3c.3 0 .5.2.5.5v.3c-.6 2.3.1 4.7 1.7 6.4s4 2.3 6.4 1.7c.1 0 .3.1.4.3.1.2.1.4-.1.5-1.9 4.8-6.5 8.1-11.3 9.3z"/>
+        </svg>
+      </div>
+      <svg viewBox="0 0 24 24" width="15" height="15" class="menu-item"><path fill="currentColor" d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 0 0-6 0zm-4-4 2 2a7.074 7.074 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+      <span class="battery-pct">100%</span>
+      <svg viewBox="0 0 24 24" width="15" height="15" class="menu-item"><path fill="currentColor" d="M16 20H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2zm3-11v6c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2z"/></svg>
+      <span class="sys-time" id="menu-clock">Mon 9:00 AM</span>
+    </div>
+  </header>
+
+  <!-- ── DESKTOP ── -->
+  <main class="desktop" id="desktop">
+
+    <!-- Desktop icons (LEFT side) -->
+    <div class="desktop-icons" id="desktop-icons">
+      <div class="d-icon" onclick="openWindow('win-terminal')" tabindex="0">
+        <div class="d-icon-img terminal-icon">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zm-2-1h-6v-2h6v2zm-8.29-2.29L12.41 12 9.71 9.29l1.41-1.41L15.24 12l-4.12 4.12-1.41-1.42z"/></svg>
+        </div>
+        <span>Terminal</span>
+      </div>
+      <div class="d-icon" onclick="window.open('https://www.linkedin.com/in/abishek-m-223772212/','_blank')" tabindex="0">
+        <div class="d-icon-img linkedin-icon">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </div>
+        <span>LinkedIn</span>
+      </div>
+      <div class="d-icon" onclick="openWindow('win-contact')" tabindex="0">
+        <div class="d-icon-img mail-icon">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <span>Contact</span>
+      </div>
+    </div>
+
+    <!-- Desktop Center Text -->
+    <div class="desktop-center-text">
+      <h1 class="anim-1">Abishek</h1>
+      <h2 class="anim-2">iOS Developer</h2>
+      <p class="anim-3">4+ years of hands-on experience building high-performance mobile applications.<br/>Expertise in Swift, UIKit, SwiftUI, and architecting scalable MVC/MVVM codebases.</p>
+    </div>
+
+    <!-- ══════════════════════════════
+         iOS SIMULATOR (CENTERPIECE)
+    ══════════════════════════════ -->
+    <div class="simulator-wrap" id="simulator-wrap">
+
+      <!-- Simulator chrome / toolbar -->
+      <div class="sim-toolbar" id="sim-toolbar" onmousedown="dragStart(event,'simulator-wrap')">
+        <div class="sim-tb-left">
+          <div class="sim-tb-btn sim-tb-red"   onclick="closeWindow('simulator-wrap')"></div>
+          <div class="sim-tb-btn sim-tb-yellow" onclick="minimizeWindow('simulator-wrap')"></div>
+          <div class="sim-tb-btn sim-tb-green"  onclick="toggleMaximize('simulator-wrap')"></div>
+        </div>
+        <div class="sim-tb-title">
+          <svg viewBox="0 0 24 24" width="13" height="13" style="opacity:.6"><path fill="currentColor" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.1.09 2.23-.58 2.95-1.39z"/></svg>
+          Abishek — iOS Developer
+        </div>
+        <div class="sim-tb-right">
+          <button class="sim-home-btn" onclick="goHome()" title="Home Screen">⌂</button>
+        </div>
+      </div>
+
+      <!-- iPhone Frame -->
+      <div class="iphone-frame" id="iphone-frame">
+        <!-- Phone body -->
+        <div class="iphone-body">
+
+          <!-- Side buttons -->
+          <div class="iphone-btn-vol-up"></div>
+          <div class="iphone-btn-vol-dn"></div>
+          <div class="iphone-btn-power"></div>
+
+          <!-- Screen -->
+          <div class="iphone-screen" id="iphone-screen">
+
+            <!-- Dynamic Island -->
+            <div class="dynamic-island" id="dynamic-island">
+              <div class="di-camera"></div>
+            </div>
+
+            <!-- Status Bar -->
+            <div class="iphone-status-bar">
+              <span class="status-time" id="iphone-clock">9:41</span>
+              <div class="status-right">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 0 0-6 0zm-4-4 2 2a7.074 7.074 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+                <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+              </div>
+            </div>
+
+            <!-- ── APP SCREENS (inside iPhone) ── -->
+
+            <!-- HOME SCREEN -->
+            <div class="iphone-view active" id="view-home">
+              <div class="home-header">
+                <img src="profile_avatar.png?v=2" alt="Abishek" class="home-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                <div class="home-avatar-fb">A</div>
+                <div class="home-greeting">
+                  <p class="home-hi">Hello 👋</p>
+                  <p class="home-name">Abishek</p>
+                  <p class="home-role">iOS Developer</p>
+                </div>
+              </div>
+              <!-- App Grid -->
+              <div class="app-grid">
+
+                <div class="app-icon-wrap" onclick="openApp('view-about')">
+                  <div class="app-icon ai-about">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                  </div>
+                  <span>About</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-skills')">
+                  <div class="app-icon ai-skills">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M9 11.75A1.25 1.25 0 1 0 7.75 13 1.25 1.25 0 0 0 9 11.75zm6 0A1.25 1.25 0 1 0 13.75 13 1.25 1.25 0 0 0 15 11.75zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-2c1.84 0 3.5-.63 4.82-1.67L7.67 7.18C6.63 8.5 6 10.16 6 12c0 3.31 2.69 6 6 6zm6-6c0-1.84-.63-3.5-1.67-4.82L7.18 16.33C8.5 17.37 10.16 18 12 18c3.31 0 6-2.69 6-6z"/></svg>
+                  </div>
+                  <span>Skills</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-experience')">
+                  <div class="app-icon ai-exp">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+                  </div>
+                  <span>Experience</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-apps')">
+                  <div class="app-icon ai-appstore">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.1.09 2.23-.58 2.95-1.39z"/></svg>
+                  </div>
+                  <span>App Store</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-contact')">
+                  <div class="app-icon ai-contact">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                  </div>
+                  <span>Contact</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-education')">
+                  <div class="app-icon ai-edu">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+                  </div>
+                  <span>Education</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="window.open('https://www.linkedin.com/in/abishek-m-223772212/','_blank')">
+                  <div class="app-icon ai-linkedin">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </div>
+                  <span>LinkedIn</span>
+                </div>
+
+                <div class="app-icon-wrap" onclick="openApp('view-settings')">
+                  <div class="app-icon ai-settings">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                  </div>
+                  <span>Settings</span>
+                </div>
+
+              </div>
+
+              <!-- Dock -->
+              <div class="iphone-dock">
+                <div class="app-icon-wrap dock-item-app" onclick="openApp('view-about')">
+                  <div class="app-icon ai-about"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+                  <span>About</span>
+                </div>
+                <div class="app-icon-wrap dock-item-app" onclick="openApp('view-apps')">
+                  <div class="app-icon ai-appstore"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.1.09 2.23-.58 2.95-1.39z"/></svg></div>
+                  <span>Apps</span>
+                </div>
+                <div class="app-icon-wrap dock-item-app" onclick="openApp('view-contact')">
+                  <div class="app-icon ai-contact"><svg viewBox="0 0 24 24" fill="white" width="22" height="22"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                  <span>Contact</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── ABOUT APP ── -->
+            <div class="iphone-view" id="view-about">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>About Me</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+                <div class="app-profile-hero">
+                  <img src="profile_avatar.png?v=2" alt="Abishek" class="app-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="app-avatar-fb">A</div>
+                  <h2 class="app-hero-name">Abishek</h2>
+                  <p class="app-hero-role">iOS Developer</p>
+                  <div class="app-status-pill">🟢 Available for Opportunities</div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">Professional Summary</h3>
+                  <p class="app-text">iOS Developer based in <strong>Coimbatore, India</strong> with 4+ years of hands-on experience building high-performance mobile applications for enterprise and consumer markets.</p>
+                  <p class="app-text">Expertise spans the full iOS lifecycle — utilizing Swift, UIKit, and SwiftUI, architecting scalable MVC/MVVM codebases, integrating RESTful APIs, and deploying polished apps on the App Store.</p>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">Info</h3>
+                  <div class="app-info-row">
+                    <span class="app-info-icon">📍</span>
+                    <div><span class="app-info-label">Location</span><span class="app-info-val">Coimbatore, India</span></div>
+                  </div>
+                  <div class="app-info-row">
+                    <span class="app-info-icon">📧</span>
+                    <div><span class="app-info-label">Email</span><a href="mailto:iosdev.abishek@gmail.com" class="app-info-val app-link">iosdev.abishek@gmail.com</a></div>
+                  </div>
+                  <div class="app-info-row">
+                    <span class="app-info-icon">📞</span>
+                    <div><span class="app-info-label">Phone</span><a href="tel:+917010642760" class="app-info-val app-link">+91 7010642760</a></div>
+                  </div>
+                  <div class="app-info-row">
+                    <span class="app-info-icon">🌐</span>
+                    <div><span class="app-info-label">Languages</span><span class="app-info-val">English & Tamil</span></div>
+                  </div>
+                  <div class="app-info-row">
+                    <span class="app-info-icon">🎓</span>
+                    <div><span class="app-info-label">Education</span><span class="app-info-val">B.Sc. IT — Bharathidasan University</span></div>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">Stats</h3>
+                  <div class="app-stats-row">
+                    <div class="app-stat"><span class="app-stat-n">4+</span><span class="app-stat-l">Years Exp.</span></div>
+                    <div class="app-stat"><span class="app-stat-n">6+</span><span class="app-stat-l">Apps Shipped</span></div>
+                    <div class="app-stat"><span class="app-stat-n">2</span><span class="app-stat-l">Companies</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── SKILLS APP ── -->
+            <div class="iphone-view" id="view-skills">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Skills</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+                <div class="app-section">
+                  <h3 class="app-section-title">⚡ Languages & Frameworks</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">Swift</span><span class="sp sp-primary">UIKit</span><span class="sp sp-primary">SwiftUI</span><span class="sp">Cocoa Touch</span><span class="sp">Combine</span><span class="sp">Objective-C</span>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">🏗 Architecture</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">MVC</span><span class="sp sp-primary">MVVM</span><span class="sp">SOLID</span><span class="sp">Design Patterns</span><span class="sp">Clean Code</span>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">🗄 Data & Networking</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">RESTful APIs</span><span class="sp sp-primary">JSON</span><span class="sp">Realm</span><span class="sp">Core Data</span><span class="sp">Firebase</span><span class="sp">URLSession</span>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">🛠 Tools & DevOps</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">Xcode</span><span class="sp sp-primary">CI/CD</span><span class="sp">Fastlane</span><span class="sp">Xcode Cloud</span><span class="sp">Git</span><span class="sp">App Store Connect</span>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">🔗 Integrations</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">Azure Face API</span><span class="sp sp-primary">Apple Pay</span><span class="sp">Push Notifications</span><span class="sp">Media Capture</span><span class="sp">Location</span>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">🎨 UI & UX</h3>
+                  <div class="skill-pills-app">
+                    <span class="sp sp-primary">Storyboards</span><span class="sp sp-primary">XIB</span><span class="sp">Auto Layout</span><span class="sp">HIG Guidelines</span><span class="sp">Animations</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── EXPERIENCE APP ── -->
+            <div class="iphone-view" id="view-experience">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Experience</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+
+                <div class="exp-card-app break-card">
+                  <div class="exp-app-header">
+                    <div class="exp-app-icon exp-icon-break">⏸</div>
+                    <div>
+                      <h4>Career Break</h4>
+                      <p class="exp-app-co">Personal Recovery</p>
+                    </div>
+                    <span class="exp-app-badge badge-break">On Leave</span>
+                  </div>
+                  <p class="exp-app-date">Feb 2026 – Present · India</p>
+                  <p class="exp-app-desc">Took a medical leave following an accident. Now fully recovered and actively seeking iOS Developer opportunities. 🟢</p>
+                </div>
+
+                <div class="exp-card-app">
+                  <div class="exp-app-header">
+                    <div class="exp-app-icon exp-icon-primary">🏢</div>
+                    <div>
+                      <h4>iOS Developer</h4>
+                      <p class="exp-app-co">Newgene Technologies Pte Ltd</p>
+                    </div>
+                    <span class="exp-app-badge badge-primary">Full-Time</span>
+                  </div>
+                  <p class="exp-app-date">Oct 2024 – Jan 2026 · Pollachi, India</p>
+                  <ul class="exp-app-bullets">
+                    <li>Construction management iOS apps — safety compliance, field reporting</li>
+                    <li>Facial recognition via <strong>Azure Face API</strong> for worker authentication</li>
+                    <li>Background location tracking for site monitoring</li>
+                    <li>Toolbox Meetings, Incident Management & Permit to Work with <strong>Realm offline-first</strong></li>
+                    <li>Push notifications, media capture & REST API integration</li>
+                    <li>Deployed to App Store following Apple HIG</li>
+                  </ul>
+                  <div class="exp-app-tech">
+                    <span>Swift</span><span>MVC</span><span>Realm</span><span>Azure Face API</span><span>REST APIs</span>
+                  </div>
+                </div>
+
+                <div class="exp-card-app">
+                  <div class="exp-app-header">
+                    <div class="exp-app-icon exp-icon-secondary">🏢</div>
+                    <div>
+                      <h4>iOS Developer</h4>
+                      <p class="exp-app-co">Hoffen Soft</p>
+                    </div>
+                    <span class="exp-app-badge badge-secondary">Full-Time</span>
+                  </div>
+                  <p class="exp-app-date">Mar 2022 – Sep 2024 · Coimbatore, India</p>
+                  <ul class="exp-app-bullets">
+                    <li>Built multi-view apps from scratch using Swift, Xcode, Storyboards & XIB</li>
+                    <li>Integrated RESTful APIs & third-party libraries</li>
+                    <li>White-labelled enterprise <strong>food-ordering apps</strong> with Apple Pay</li>
+                    <li>Automated deployment via <strong>Fastlane & Xcode Cloud</strong></li>
+                    <li>Bug fixes, performance improvements & new features</li>
+                  </ul>
+                  <div class="exp-app-tech">
+                    <span>Swift</span><span>UIKit</span><span>MVC</span><span>Apple Pay</span><span>Fastlane</span><span>Xcode Cloud</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ── APP STORE APP ── -->
+            <div class="iphone-view" id="view-apps">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Published Apps</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+
+                <div class="app-store-card">
+                  <div class="asc-icon" style="background:linear-gradient(135deg,#ff6b35,#f7c948)">🦺</div>
+                  <div class="asc-info">
+                    <h4>eSafe</h4>
+                    <p class="asc-co">Newgene Technologies</p>
+                    <p class="asc-desc">Construction safety management — incident reporting, Toolbox Meetings, Permit to Work, facial recognition & field productivity.</p>
+                    <div class="asc-tags"><span>Swift</span><span>MVC</span><span>Realm</span><span>Azure Face API</span></div>
+                  </div>
+                  <a href="https://apps.apple.com/in/app/esafe/id6503290863" target="_blank" class="asc-btn">GET</a>
+                </div>
+
+                <div class="app-store-card">
+                  <div class="asc-icon" style="background:linear-gradient(135deg,#1a73e8,#34a853)">🏗</div>
+                  <div class="asc-info">
+                    <h4>E-Bis</h4>
+                    <p class="asc-co">Newgene Technologies</p>
+                    <p class="asc-desc">Enterprise construction management with location tracking, site monitoring & offline-first Realm sync.</p>
+                    <div class="asc-tags"><span>Swift</span><span>MVC</span><span>Location</span><span>Offline-First</span></div>
+                  </div>
+                  <a href="https://apps.apple.com/in/app/e-bis/id1469181013" target="_blank" class="asc-btn">GET</a>
+                </div>
+
+                <div class="app-store-card">
+                  <div class="asc-icon" style="background:linear-gradient(135deg,#6f4e37,#d4a574)">☕</div>
+                  <div class="asc-info">
+                    <h4>Paytronix Café</h4>
+                    <p class="asc-co">Hoffen Soft</p>
+                    <p class="asc-desc">White-labelled café loyalty & rewards app with menu management, orders & Apple Pay integration.</p>
+                    <div class="asc-tags"><span>Swift</span><span>UIKit</span><span>Apple Pay</span></div>
+                  </div>
+                  <a href="https://apps.apple.com/us/app/paytronix-cafe-rewards/id523749180" target="_blank" class="asc-btn">GET</a>
+                </div>
+
+                <div class="app-store-card">
+                  <div class="asc-icon" style="background:linear-gradient(135deg,#e91e8c,#ff9a3c)">🍦</div>
+                  <div class="asc-info">
+                    <h4>Yogurtland</h4>
+                    <p class="asc-co">Hoffen Soft</p>
+                    <p class="asc-desc">Consumer frozen yogurt app — ordering, store finder, loyalty rewards & seamless Apple Pay.</p>
+                    <div class="asc-tags"><span>Swift</span><span>UIKit</span><span>Apple Pay</span><span>Fastlane</span></div>
+                  </div>
+                  <a href="https://apps.apple.com/us/app/yogurtland/id60496832" target="_blank" class="asc-btn">GET</a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ── CONTACT APP ── -->
+            <div class="iphone-view" id="view-contact">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Contact</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+                <div class="app-profile-hero" style="padding-bottom:8px">
+                  <img src="profile_avatar.png?v=2" alt="Abishek" class="app-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="app-avatar-fb">A</div>
+                  <h2 class="app-hero-name">Abishek</h2>
+                  <p class="app-hero-role">Open to iOS Developer roles</p>
+                </div>
+                <div class="app-section">
+                  <a href="mailto:iosdev.abishek@gmail.com" class="contact-row-app">
+                    <div class="cra-icon" style="background:#3478f6">📧</div>
+                    <div><span class="cra-label">Email</span><span class="cra-val">iosdev.abishek@gmail.com</span></div>
+                    <span class="cra-arrow">›</span>
+                  </a>
+                  <a href="tel:+917010642760" class="contact-row-app">
+                    <div class="cra-icon" style="background:#34c759">📞</div>
+                    <div><span class="cra-label">Phone</span><span class="cra-val">+91 7010642760</span></div>
+                    <span class="cra-arrow">›</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/abishek-m-223772212/" target="_blank" class="contact-row-app">
+                    <div class="cra-icon" style="background:#0077b5">💼</div>
+                    <div><span class="cra-label">LinkedIn</span><span class="cra-val">abishek-m-223772212</span></div>
+                    <span class="cra-arrow">›</span>
+                  </a>
+                </div>
+                <div class="app-section">
+                  <div class="contact-row-app no-link">
+                    <div class="cra-icon" style="background:#8e44ad">📍</div>
+                    <div><span class="cra-label">Location</span><span class="cra-val">Coimbatore, India</span></div>
+                  </div>
+                  <div class="contact-row-app no-link">
+                    <div class="cra-icon" style="background:#e67e22">🌐</div>
+                    <div><span class="cra-label">Languages</span><span class="cra-val">English & Tamil</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── EDUCATION APP ── -->
+            <div class="iphone-view" id="view-education">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Education</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+                <div class="app-section">
+                  <div class="edu-app-card">
+                    <div class="edu-app-icon">🎓</div>
+                    <div class="edu-app-body">
+                      <h3>Bachelor of Science</h3>
+                      <p class="edu-app-sub">Information Technology</p>
+                      <p class="edu-app-uni">Bharathidasan University</p>
+                      <span class="edu-app-date">2018 – 2021</span>
+                      <p class="edu-app-desc">Built a strong foundation in computer science, programming & software engineering that drives my iOS development career.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">Certifications & Learning</h3>
+                  <div class="cert-row"><span>📱</span><span>iOS Development with Swift — Apple</span></div>
+                  <div class="cert-row"><span>🔧</span><span>Xcode & Interface Builder — Self Study</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── SETTINGS APP ── -->
+            <div class="iphone-view" id="view-settings">
+              <div class="app-navbar">
+                <button class="app-back" onclick="goHome()">‹ Home</button>
+                <span>Settings</span>
+                <span></span>
+              </div>
+              <div class="app-scroll">
+                <div class="settings-profile-row">
+                  <img src="profile_avatar.png?v=2" alt="Abishek" class="settings-avatar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+                  <div class="settings-avatar-fb">A</div>
+                  <div>
+                    <p class="settings-name">Abishek</p>
+                    <p class="settings-sub">iOS Developer · Apple ID</p>
+                  </div>
+                </div>
+                <div class="app-section">
+                  <div class="settings-row"><span>🌓</span><span>Appearance</span><span class="settings-val" onclick="toggleTheme()" style="cursor:pointer;color:var(--accent)">Toggle Theme</span></div>
+                  <div class="settings-row"><span>📱</span><span>Device</span><span class="settings-val">iPhone 15 Pro</span></div>
+                  <div class="settings-row"><span>⚙️</span><span>iOS Version</span><span class="settings-val">17.4</span></div>
+                  <div class="settings-row"><span>🗣️</span><span>Language</span><span class="settings-val">English</span></div>
+                  <div class="settings-row"><span>🌍</span><span>Region</span><span class="settings-val">India</span></div>
+                </div>
+                <div class="app-section">
+                  <h3 class="app-section-title">Portfolio Info</h3>
+                  <div class="settings-row"><span>👤</span><span>Name</span><span class="settings-val">Abishek</span></div>
+                  <div class="settings-row"><span>💼</span><span>Role</span><span class="settings-val">iOS Developer</span></div>
+                  <div class="settings-row"><span>📆</span><span>Experience</span><span class="settings-val">4+ Years</span></div>
+                  <div class="settings-row"><span>📍</span><span>Location</span><span class="settings-val">Coimbatore</span></div>
+                  <div class="settings-row"><span>🟢</span><span>Status</span><span class="settings-val" style="color:#34c759">Available</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Home indicator -->
+            <div class="home-indicator" onclick="goHome()"></div>
+          </div>
+          <!-- /iphone-screen -->
+        </div>
+        <!-- /iphone-body -->
+      </div>
+      <!-- /iphone-frame -->
+    </div>
+    <!-- /simulator-wrap -->
+
+    <!-- ══════════════════════════════
+         TERMINAL WINDOW (floats on desktop)
+    ══════════════════════════════ -->
+    <div class="mac-window hidden" id="win-terminal" style="width:620px;height:400px;top:130px;left:60px">
+      <div class="win-header" onmousedown="dragStart(event,'win-terminal')">
+        <div class="win-controls">
+          <button class="wc wc-close"  onclick="closeWindow('win-terminal')"></button>
+          <button class="wc wc-min"    onclick="minimizeWindow('win-terminal')"></button>
+          <button class="wc wc-max"    onclick="toggleMaximize('win-terminal')"></button>
+        </div>
+        <span class="win-title">Terminal — zsh — 80×24</span>
+      </div>
+      <div class="win-body terminal-body" id="terminal-wrap" onclick="focusTerminal()">
+        <div class="term-welcome" id="term-welcome">
+          <p>Abishek OS 1.0.0 (Darwin 24.3.0)</p>
+          <p>Welcome to <span class="t-orange">Abishek</span>'s Interactive Shell.</p>
+          <p>Type <span class="t-green">help</span> to see available commands.</p>
+          <p>Last login: <span id="term-login"></span> on ttys001</p>
+          <br/>
+        </div>
+        <div id="term-history"></div>
+        <div class="term-input-row" id="term-input-row">
+          <span class="term-prompt">abishek@macbook:~$&nbsp;</span>
+          <input type="text" id="term-input" class="term-input" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" />
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT WINDOW -->
+    <div class="mac-window hidden" id="win-contact" style="width:420px;height:340px;top:180px;left:80px">
+      <div class="win-header" onmousedown="dragStart(event,'win-contact')">
+        <div class="win-controls">
+          <button class="wc wc-close" onclick="closeWindow('win-contact')"></button>
+          <button class="wc wc-min"   onclick="minimizeWindow('win-contact')"></button>
+          <button class="wc wc-max"   onclick="toggleMaximize('win-contact')"></button>
+        </div>
+        <span class="win-title">Contact — Abishek</span>
+      </div>
+      <div class="win-body contact-body">
+        <h2 class="contact-title">Let's Build Something <span class="accent">Amazing</span></h2>
+        <p class="contact-sub">Actively looking for iOS Developer roles.</p>
+        <div class="contact-links">
+          <a href="mailto:iosdev.abishek@gmail.com" class="contact-link" id="cl-email">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <div><span class="cl-label">Email</span><span class="cl-val">iosdev.abishek@gmail.com</span></div>
+          </a>
+          <a href="tel:+917010642760" class="contact-link" id="cl-phone">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <div><span class="cl-label">Phone</span><span class="cl-val">+91 7010642760</span></div>
+          </a>
+          <a href="https://www.linkedin.com/in/abishek-m-223772212/" target="_blank" rel="noopener" class="contact-link" id="cl-linkedin">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            <div><span class="cl-label">LinkedIn</span><span class="cl-val">abishek-m-223772212</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCK TRAY -->
+    <div class="dock-tray" id="dock-tray"></div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
